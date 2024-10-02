@@ -9,7 +9,7 @@ const Bridge: React.FC<IProps> = ({ setIsModalOpen }) => {
         <div className="container-notice">
           <div
             onClick={() => {
-              setIsModalOpen(false);
+              setIsModalOpen();
             }}
             className="closeX_notice"
           >

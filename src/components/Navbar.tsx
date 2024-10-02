@@ -72,7 +72,6 @@ const Navbar: React.FC = () => {
         ))}
         <li className="nav-item">
           <a
-            href=""
             onClick={() => {
               setShowBridge(true);
             }}
