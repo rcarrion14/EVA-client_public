@@ -254,6 +254,7 @@ const Home: React.FC = () => {
           >
             Market
           </div>
+
           <div
             className={
               operationType == "burnVault" ? "operation active" : "operation"

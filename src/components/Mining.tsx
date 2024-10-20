@@ -43,8 +43,10 @@ const Mining: React.FC = () => {
         "https://lyo9arzxxh.execute-api.us-east-1.amazonaws.com/default/getPagos-EVA"
       )
       .then((response) => {
-        const rawList = response.data;
-        const orderedList = rawList.sort(
+        console.log(response);
+
+        const rawList_pagos = response.data.dataFromDynamo;
+        const orderedList = rawList_pagos.sort(
           (a: any, b: any) => b.tstamp - a.tstamp
         );
         setPaymentsList(orderedList);

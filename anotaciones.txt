@@ -1,0 +1,21 @@
+Grafica de EVA:
+La rentabilidad en momento t es: totalSupp + pagos(t) + transferencias(t) - quemados(t)
+
+r(t) = totalSupp(t)[eva] / btcEnBaul(t)[btc]
+
+    totalSupp(t) = totalSupp(0)[eva] - quemados(t)[eva]
+
+    btcEnBaul(t) = pagos(t) + transferencias(t)
+
+
+
+Transferencias directas hasta el momento t:
+    Es el btc que le haya entrado al baul
+
+
+
+
+    -Lista de pagos - pronto    
+    
+    -Lista transferencias directas
+    -Lista de quemas
