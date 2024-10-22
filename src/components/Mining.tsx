@@ -8,14 +8,14 @@ import {
   formatTimestampMobile,
 } from "../utils";
 import axios from "axios";
-import { dataPagosInterface } from "../utils/Interfaces";
 import { ethers } from "ethers";
+import { DataPagosInterface /* ServerData */ } from "../utils/Interfaces";
 
 const Mining: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const [paymentsList, setPaymentsList] = useState<
-    dataPagosInterface[] | undefined
+    DataPagosInterface[] | undefined
   >();
 
   const perPage: number = 6;
@@ -45,7 +45,7 @@ const Mining: React.FC = () => {
       .then((response) => {
         console.log(response);
 
-        const rawList_pagos = response.data.dataFromDynamo;
+        const rawList_pagos = response.data.evaPayments;
         const orderedList = rawList_pagos.sort(
           (a: any, b: any) => b.tstamp - a.tstamp
         );
@@ -65,7 +65,7 @@ const Mining: React.FC = () => {
             <div className="tableHeader">BTC INCOME</div>
             <div className="tableHeader">DATE TIME (UTC)</div>
 
-            {paginatedList().map((pago: dataPagosInterface, index: any) => {
+            {paginatedList().map((pago: DataPagosInterface, index: any) => {
               return (
                 <>
                   <div
@@ -97,7 +97,7 @@ const Mining: React.FC = () => {
             <div className="tableHeader">BTC INCOME</div>
             <div className="tableHeader">TX HASH</div>
 
-            {paginatedList().map((pago: dataPagosInterface, index: any) => {
+            {paginatedList().map((pago: DataPagosInterface, index: any) => {
               return (
                 <>
                   {pago.pago != "" ? (

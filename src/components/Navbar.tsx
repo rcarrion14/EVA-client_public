@@ -14,6 +14,7 @@ const scrollToSection = (sectionId: string): void => {
 const sections = [
   { id: "home", label: "Home" },
   { id: "mining", label: "Mining" },
+  // { id: "dashboard", label: "Dashboard" },
 ];
 
 const Navbar: React.FC = () => {
