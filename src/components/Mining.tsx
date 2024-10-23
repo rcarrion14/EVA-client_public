@@ -39,14 +39,10 @@ const Mining: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(
-        "https://lyo9arzxxh.execute-api.us-east-1.amazonaws.com/default/getPagos-EVA"
-      )
+      .get("https://api.evervaluecoin.com/getDailyPayments")
       .then((response) => {
-        console.log(response);
-
-        const rawList_pagos = response.data.evaPayments;
-        const orderedList = rawList_pagos.sort(
+        const rawList = response.data.body;
+        const orderedList = rawList.sort(
           (a: any, b: any) => b.tstamp - a.tstamp
         );
         setPaymentsList(orderedList);
