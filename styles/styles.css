@@ -582,11 +582,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .btc {
-  background-color: var(--naranja);
+  background-color: rgba(32, 67, 250, 0.7);
 }
 
 .eva {
-  background-color: white;
+  background-color: rgb(255, 165, 0);
 }
 
 .paginate-container {

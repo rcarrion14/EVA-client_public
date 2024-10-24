@@ -9,7 +9,7 @@ import {
 } from "../utils";
 import axios from "axios";
 import { ethers } from "ethers";
-import { DataPagosInterface /* ServerData */ } from "../utils/Interfaces";
+import { DataPagosInterface } from "../utils/Interfaces";
 
 const Mining: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);

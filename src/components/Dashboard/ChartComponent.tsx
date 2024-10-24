@@ -7,29 +7,30 @@ import {
   AreaData,
   /*   Time, */
   CrosshairMode,
+  Time,
 } from "lightweight-charts";
+
 import axios from "axios";
-import { OrderedTransactions } from "../../utils/Interfaces";
+
+import { ServerDataType } from "../../utils/Interfaces";
 import {
-  procesadorTx,
-  rentabilidadSemanalParaGrafico,
-} from "../../utils/procesadorTx";
+  precioBTCDiario,
+  precioEVADiario,
+} from "../../utils/generadorDatosGrafica";
 
 const ChartComponent: React.FC = () => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
 
-  const [paymentsList, setPaymentsList] = useState<OrderedTransactions[][]>();
+  const [paymentsList, setPaymentsList] = useState<
+    ServerDataType | undefined
+  >();
 
   useEffect(() => {
     axios
-      .get(
-        "https://lyo9arzxxh.execute-api.us-east-1.amazonaws.com/default/getPagos-EVA"
-      )
-      .then((response) => {
-        const rawTx = response.data.allTransactionsData;
-        const orderedTx = procesadorTx(rawTx);
-        setPaymentsList(orderedTx);
+      .get("https://api.evervaluecoin.com/getAllTransactions")
+      .then((response: any) => {
+        setPaymentsList(response.data.body);
       });
   }, []);
 
@@ -46,44 +47,24 @@ const ChartComponent: React.FC = () => {
           textColor: "#FFFFFF",
           fontFamily: "'Be Vietnam Pro', sans-serif",
         },
-
         rightPriceScale: {
           visible: true,
-          scaleMargins: {
-            /*             top: 0.3, // Ajusta este valor para cambiar el margen superior
-            bottom: 0.1, // Ajusta este valor para cambiar el margen inferior */
-          },
           borderVisible: false,
+          // Si el margen inferior afecta la visualización de los datos, ajusta esto
+          scaleMargins: {
+            top: 0.2, // Ajusta este valor para agregar más espacio en la parte superior
+            bottom: 0.1, // Ajusta este valor para agregar más espacio en la parte inferior
+          },
         },
-
         leftPriceScale: {
           visible: true,
           borderVisible: false,
         },
-
         timeScale: {
           borderColor: "#d1d4dc",
           timeVisible: true,
-          /*         tickMarkFormatter: (time: Time) => {
-            const date = new Date(time as string);
-            const months = [
-              "JAN",
-              "FEB",
-              "MAR",
-              "APR",
-              "MAY",
-              "JUN",
-              "JUL",
-              "AUG",
-              "SEP",
-              "OCT",
-              "NOV",
-              "DEC",
-            ];
-            return months[date.getMonth()];
-          }, */
-          rightOffset: 0, // Ajusta este valor para cambiar el espacio en el lado derecho
-          barSpacing: 48, // Ajusta este valor para cambiar el espacio entre las barras
+          rightOffset: 10, // Ajusta este valor para agregar más espacio a la derecha
+          barSpacing: 35, // Ajusta el espacio entre barras, disminúyelo si las barras están muy separadas
         },
         grid: {
           vertLines: { visible: false },
@@ -99,21 +80,56 @@ const ChartComponent: React.FC = () => {
 
       chartRef.current = chart;
 
+      // Primera serie de datos
+      const areaSeries1: ISeriesApi<"Area"> = chart.addAreaSeries({
+        lineColor: "rgba(32, 67, 250, 0.7)",
+        topColor: "rgba(32, 67, 250, 0.5)", // Custom rgba color for better transparency
+        bottomColor: "rgba(25, 25, 25, 0.1)", // Custom rgba color for better transparency
+        priceScaleId: "right",
+        lineWidth: 3,
+        title: "EVA usd",
+        priceFormat: {
+          type: "price",
+          minMove: 0.01,
+          precision: 2,
+        },
+      });
+
+      const data1: AreaData[] = !paymentsList
+        ? [{ time: "2021-01-23" as Time, value: 0.01 }]
+        : precioEVADiario(paymentsList);
+
       // Segunda serie de datos
       const areaSeries2: ISeriesApi<"Area"> = chart.addAreaSeries({
         lineColor: "rgb(255, 165, 0)",
-        topColor: "rgb(255, 165, 0, 0.2)",
+        topColor: "rgba(255, 165, 0, 0.2)",
         bottomColor: "rgba(25, 25, 25, 0.1)",
         priceScaleId: "left",
         lineWidth: 3,
-        title: "EVA",
+        title: "BTC usd",
+        priceFormat: {
+          type: "price",
+          minMove: 1,
+          precision: 0,
+        },
       });
 
-      //const data2: AreaData[] = [{ time: "2021-01-23" as Time, value: 0.01 }];
-
-      const data2: AreaData[] = rentabilidadSemanalParaGrafico(paymentsList);
+      const data2: AreaData[] = !paymentsList
+        ? [{ time: "2021-01-23" as Time, value: 0.01 }]
+        : precioBTCDiario();
 
       areaSeries2.setData(data2);
+      areaSeries1.setData(data1);
+
+      console.log({ data1 });
+
+      const firstPoint = data2[0].time;
+      const lastPoint = data2[data2.length - 1].time;
+
+      chart.timeScale().setVisibleRange({
+        from: firstPoint,
+        to: lastPoint,
+      });
 
       return () => {
         chart.remove();
@@ -123,14 +139,14 @@ const ChartComponent: React.FC = () => {
 
   return (
     <>
-      <div className="leyenda">
-        <div>
-          <span className="dot btc"></span>
-          Bitcoin
-        </div>
+      <div className="leyenda" style={{ zIndex: "5" }}>
         <div>
           <span className="dot eva"></span>
-          EverValue
+          precio BTC
+        </div>
+        <div onClick={() => {}}>
+          <span className="dot btc"></span>
+          Precio eva diario
         </div>
       </div>
       <div

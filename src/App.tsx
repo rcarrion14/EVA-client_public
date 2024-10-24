@@ -9,7 +9,7 @@ import { ContractProvider } from "./Context/ContractContext";
 import { GeneralDataProvider } from "./Context/GeneralDataContext";
 import { UserDataProvider } from "./Context/UserDataContext";
 import { ConnectionProvider } from "./Context/ConnectionContext";
-//import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const App: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const App: React.FC = () => {
               <Navbar />
               <Home />
               <Mining />
-              {/* <Dashboard /> */}
+              <Dashboard />
             </div>
             <Footer />
           </UserDataProvider>

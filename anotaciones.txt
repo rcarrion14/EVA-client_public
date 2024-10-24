@@ -14,3 +14,26 @@ Transferencias directas hasta el momento t:
     -Lista de pagos - pronto        
     -Lista transferencias directas
     -Lista de quemas
+
+
+Que tengo que graficar:
+    -rentabilidad
+
+
+
+    Buen día! 
+
+El gráfico se ve muy bien y está claro!
+
+Tengo algunas sugerencias:
+- Agregar un título como "La evolución del Burn Price"
+- Cambiar "EVA" por "sats".
+- Mostrar supply circulante y wBTC en el Burn Vault: Si es posible, añadir una línea o barras que muestren la cantidad de EVA en circulación y la cantidad de wBTC en el Burn Vault ayudaría a los usuarios a ver la relación entre el Burn Price y estos factores.
+- Reflejar las quemas mensuales: Dado que se quemarán 250k EVA cada mes, sería bueno marcar estos eventos en el gráfico para que los usuarios vean cómo afecta el Burn Price de inmediato.
+
+
+el 23 hacemos otra quema pero si queres ya podes adelantar el valor de eva que quedaria circulante,
+
+
+Esa sería la idea, más o menos. Pero en un lado creo que debería estar el Burn Price y en el otro la cantidad de wBTC en el Burn Vault
+
