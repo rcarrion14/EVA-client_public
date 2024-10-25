@@ -10,29 +10,17 @@ import {
   Time,
 } from "lightweight-charts";
 
-import axios from "axios";
-
-import { ServerDataType } from "../../utils/Interfaces";
 import {
   burnPriceSemanal,
   wbtcEnBaulSemanal,
 } from "../../utils/generadorDatosGrafica";
+import { ServerDataType } from "../../utils/Interfaces";
 
-const ChartComponent: React.FC = () => {
+const ChartComponent_burnPrice: React.FC<{
+  paymentsList: ServerDataType | undefined;
+}> = ({ paymentsList }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
-
-  const [paymentsList, setPaymentsList] = useState<
-    ServerDataType | undefined
-  >();
-
-  useEffect(() => {
-    axios
-      .get("https://api.evervaluecoin.com/getAllTransactions")
-      .then((response: any) => {
-        setPaymentsList(response.data.body);
-      });
-  }, []);
 
   useEffect(() => {
     if (chartContainerRef.current) {
@@ -80,51 +68,39 @@ const ChartComponent: React.FC = () => {
 
       chartRef.current = chart;
 
-      // Primera serie de datos
-      const areaSeries1: ISeriesApi<"Area"> = chart.addAreaSeries({
-        lineColor: "rgba(32, 67, 250, 0.7)",
-        topColor: "rgba(32, 67, 250, 0.5)", // Custom rgba color for better transparency
-        bottomColor: "rgba(25, 25, 25, 0.1)", // Custom rgba color for better transparency
-        priceScaleId: "right",
-        lineWidth: 3,
-        title: "BTC en baul",
-        priceFormat: {
-          type: "price",
-          precision: 0.1,
-          minMove: 1,
-        },
-      });
-
-      const data1: AreaData[] = !paymentsList
-        ? [{ time: "2021-01-23" as Time, value: 0.01 }]
-        : wbtcEnBaulSemanal(paymentsList);
-
-      areaSeries1.setData(data1);
-
-      // Segunda serie de datos
-      const areaSeries2: ISeriesApi<"Area"> = chart.addAreaSeries({
-        lineColor: "rgb(255, 165, 0)",
-        topColor: "rgba(255, 165, 0, 0.2)",
+      const areaSeries: ISeriesApi<"Area"> = chart.addAreaSeries({
+        lineColor: "rgb(252, 146, 1)",
+        topColor: "rgba(255, 146, 1, 0.2)",
         bottomColor: "rgba(25, 25, 25, 0.1)",
         priceScaleId: "left",
         lineWidth: 3,
         title: "Burn price [Sats]",
       });
 
-      const data2: AreaData[] = !paymentsList
+      const datos: AreaData[] = !paymentsList
         ? [{ time: "2021-01-23" as Time, value: 0.01 }]
         : burnPriceSemanal(paymentsList);
 
-      areaSeries2.setData(data2);
+      areaSeries.setData(datos);
 
       // Ajusta el rango visible si los datos están descentrados
 
-      const firstPoint = data2[0].time;
-      const lastPoint = data2[data2.length - 1].time;
+      const firstPoint = datos[0].time;
+      const lastPoint = datos[datos.length - 1].time;
 
       chart.timeScale().setVisibleRange({
         from: firstPoint,
         to: lastPoint,
+      });
+
+      chart.applyOptions({
+        handleScale: {
+          axisPressedMouseMove: false,
+          mouseWheel: false,
+        },
+        handleScroll: {
+          pressedMouseMove: false,
+        },
       });
 
       return () => {
@@ -135,14 +111,12 @@ const ChartComponent: React.FC = () => {
 
   return (
     <>
+      <div className="dashboard-subheader">DASHBOARD</div>
+      <div className="dashboard-header">Burn Price</div>
       <div className="leyenda" style={{ zIndex: "5" }}>
-        <div>
-          <span className="dot btc"></span>
-          Bitcoin
-        </div>
         <div onClick={() => {}}>
           <span className="dot eva"></span>
-          EVA Burn price
+          EVA Burn price (SATS)
         </div>
       </div>
       <div
@@ -150,8 +124,17 @@ const ChartComponent: React.FC = () => {
         style={{ width: "900px", height: "400px" }}
         className="grafica"
       ></div>
+      <div className="graph-description">
+        The Burn Price of EVA rises steadily as the wBTC collateral in the Burn
+        Vault grows. This means that the value of each EVA token continuously
+        appreciates against BTC. What sets EVA apart is that this appreciation
+        is guaranteed by the daily increase in BTC collateral, providing
+        protection for investors and ensuring growing value, resulting in even
+        higher returns over time. With EVA, investors not only preserve their
+        BTC value but multiply their capital securely.
+      </div>
     </>
   );
 };
 
-export default ChartComponent;
+export default ChartComponent_burnPrice;

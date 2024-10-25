@@ -23,16 +23,33 @@
 .dashboard {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: #000000e5;
+  align-items: center;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 900px;
+  height: calc(100svh - 75px - 60px);
+  display: grid;
+  padding: 0px 20px 20px 20px;
+  box-sizing: border-box;
+}
+
+.graph-description {
+  color: white;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 20px;
 }
 
 .mining {
   position: relative;
-  background-size: cover;
   display: flex;
+  background-size: cover;
   justify-content: center;
 }
 
@@ -300,6 +317,20 @@ th {
   padding-top: 15px;
 }
 
+.dashboard-header {
+  padding: 5px 15px 0px 15px;
+  font-size: 30px;
+  color: white;
+}
+
+.dashboard-subheader {
+  padding: 0 15px 0 15px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--naranja);
+  padding-top: 15px;
+}
+
 .mining-container {
   transform: translateY(75px);
   width: 100%;
@@ -555,6 +586,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .grafica {
+  align-self: center;
   border: 1px solid #b9b9b9;
   border-radius: 15px;
   background: transparent linear-gradient(110deg, #2a2b316e 0%, #7071753e 100%)
@@ -570,6 +602,9 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 8px;
   font-size: 12px;
   color: white;
+  align-self: center;
+  place-self: center;
+  height: 0;
 }
 
 .dot {

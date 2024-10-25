@@ -8,6 +8,7 @@ import {
   /*   Time, */
   CrosshairMode,
   Time,
+  PriceScaleMode,
 } from "lightweight-charts";
 
 import axios from "axios";
@@ -18,7 +19,9 @@ import {
   precioEVADiario,
 } from "../../utils/generadorDatosGrafica";
 
-const ChartComponent: React.FC = () => {
+const ChartComponent_preciosUsd: React.FC<{
+  paymentsList: ServerDataType | undefined;
+}> = () => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
 
@@ -87,7 +90,7 @@ const ChartComponent: React.FC = () => {
         bottomColor: "rgba(25, 25, 25, 0.1)", // Custom rgba color for better transparency
         priceScaleId: "right",
         lineWidth: 3,
-        title: "EVA usd",
+        title: "EVA",
         priceFormat: {
           type: "price",
           minMove: 0.01,
@@ -101,12 +104,12 @@ const ChartComponent: React.FC = () => {
 
       // Segunda serie de datos
       const areaSeries2: ISeriesApi<"Area"> = chart.addAreaSeries({
-        lineColor: "rgb(255, 165, 0)",
-        topColor: "rgba(255, 165, 0, 0.2)",
+        lineColor: "rgb(252, 146, 1)",
+        topColor: "rgba(255, 146, 1, 0.2)",
         bottomColor: "rgba(25, 25, 25, 0.1)",
         priceScaleId: "left",
         lineWidth: 3,
-        title: "BTC usd",
+        title: "BTC",
         priceFormat: {
           type: "price",
           minMove: 1,
@@ -121,14 +124,40 @@ const ChartComponent: React.FC = () => {
       areaSeries2.setData(data2);
       areaSeries1.setData(data1);
 
-      console.log({ data1 });
-
       const firstPoint = data2[0].time;
       const lastPoint = data2[data2.length - 1].time;
 
       chart.timeScale().setVisibleRange({
         from: firstPoint,
         to: lastPoint,
+      });
+
+      chart.applyOptions({
+        handleScale: {
+          axisPressedMouseMove: false,
+          mouseWheel: false,
+        },
+        handleScroll: {
+          pressedMouseMove: false,
+        },
+      });
+
+      areaSeries2.applyOptions({
+        autoscaleInfoProvider: () => ({
+          priceRange: {
+            minValue: 50000,
+            maxValue: 78000,
+          },
+        }),
+      });
+
+      areaSeries1.applyOptions({
+        autoscaleInfoProvider: () => ({
+          priceRange: {
+            minValue: -0.2,
+            maxValue: 0.3,
+          },
+        }),
       });
 
       return () => {
@@ -139,14 +168,16 @@ const ChartComponent: React.FC = () => {
 
   return (
     <>
+      <div className="dashboard-subheader">DASHBOARD</div>
+      <div className="dashboard-header">Price Comparison: EVA vs. BTC</div>
       <div className="leyenda" style={{ zIndex: "5" }}>
         <div>
           <span className="dot eva"></span>
-          precio BTC
+          Price BTC (USD)
         </div>
         <div onClick={() => {}}>
           <span className="dot btc"></span>
-          Precio eva diario
+          Price EVA (USD)
         </div>
       </div>
       <div
@@ -154,8 +185,15 @@ const ChartComponent: React.FC = () => {
         style={{ width: "900px", height: "400px" }}
         className="grafica"
       ></div>
+      <div className="graph-description">
+        EVA not only follows BTC, but it also performs even better during price
+        increases. When BTC rises, EVA tends to increase even more, and when BTC
+        drops, EVA is less affected. This provides extra security for investors,
+        offering greater appreciation potential and lower risk during downturns,
+        making EVA a profitable and stable option in the long run.
+      </div>
     </>
   );
 };
 
-export default ChartComponent;
+export default ChartComponent_preciosUsd;
