@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ColorType,
   createChart,
@@ -10,10 +10,7 @@ import {
   Time,
 } from "lightweight-charts";
 
-import {
-  burnPriceSemanal,
-  wbtcEnBaulSemanal,
-} from "../../utils/generadorDatosGrafica";
+import { burnPriceSemanal } from "../../utils/generadorDatosGrafica";
 import { ServerDataType } from "../../utils/Interfaces";
 
 const ChartComponent_burnPrice: React.FC<{
@@ -111,8 +108,6 @@ const ChartComponent_burnPrice: React.FC<{
 
   return (
     <>
-      <div className="dashboard-subheader">DASHBOARD</div>
-      <div className="dashboard-header">Burn Price</div>
       <div className="leyenda" style={{ zIndex: "5" }}>
         <div onClick={() => {}}>
           <span className="dot eva"></span>

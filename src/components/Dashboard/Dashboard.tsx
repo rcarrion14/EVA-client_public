@@ -17,20 +17,73 @@ const Dashboard: React.FC = () => {
       });
   }, []);
 
+  const [whichGraph, setWhichGraph] = useState<"burnPrice" | "preciosUsd">(
+    "burnPrice"
+  );
+
   return (
-    <>
-      <div id="dashboard" className="seccion dashboard">
-        <div className="dashboard-container">
-          <ChartComponent_burnPrice paymentsList={paymentsList} />{" "}
+    <div id="dashboard" className="seccion dashboard">
+      <div id="aa" className="dashboard-container">
+        <div className="dashboard-subheader">DASHBOARD</div>{" "}
+        <div className="dashboard-header">
+          <span
+            className={
+              whichGraph == "burnPrice" ? undefined : "inactive-graphText"
+            }
+            onClick={() => setWhichGraph("burnPrice")}
+          >
+            Burn Price
+          </span>
+          {" - "}
+          <span
+            className={
+              whichGraph == "preciosUsd" ? undefined : "inactive-graphText"
+            }
+            onClick={() => setWhichGraph("preciosUsd")}
+          >
+            Price Comparison: EVA vs. BTC
+          </span>
         </div>
-      </div>
-      <div id="dashboard" className="seccion dashboard">
-        <div className="dashboard-container">
+        {whichGraph == "burnPrice" ? (
+          <ChartComponent_burnPrice paymentsList={paymentsList} />
+        ) : (
           <ChartComponent_preciosUsd paymentsList={paymentsList} />
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
 export default Dashboard;
+
+/*     <>
+      <div id="dashboard" className="seccion dashboard">
+        <div id="aa" className="dashboard-container">
+          <div className="dashboard-subheader">DASHBOARD</div>   
+            <div className="dashboard-header">
+                <span
+                  className={
+                    whichGraph == "burnPrice" ? undefined : "inActiveGraphText"
+                  }
+                  onClick={() => setWhichGraph("burnPrice")}
+                >
+                  Burn Price
+                </span>
+                <span
+                  className={
+                    whichGraph == "burnPrice" ? undefined : "inActiveGraphText"
+                  }
+                  onClick={() => setWhichGraph("preciosUsd")}
+                >
+                  Price Comparison: EVA vs. BTC
+                </span>
+            </div>
+
+            {whichGraph == "burnPrice" ?}
+              <ChartComponent_burnPrice paymentsList={paymentsList} />
+            </>
+          ) : (
+            <ChartComponent_preciosUsd paymentsList={paymentsList} />
+            </div>
+            </div>
+            </> )} */

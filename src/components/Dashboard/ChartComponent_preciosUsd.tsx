@@ -5,10 +5,8 @@ import {
   IChartApi,
   ISeriesApi,
   AreaData,
-  /*   Time, */
   CrosshairMode,
   Time,
-  PriceScaleMode,
 } from "lightweight-charts";
 
 import axios from "axios";
@@ -168,8 +166,6 @@ const ChartComponent_preciosUsd: React.FC<{
 
   return (
     <>
-      <div className="dashboard-subheader">DASHBOARD</div>
-      <div className="dashboard-header">Price Comparison: EVA vs. BTC</div>
       <div className="leyenda" style={{ zIndex: "5" }}>
         <div>
           <span className="dot eva"></span>

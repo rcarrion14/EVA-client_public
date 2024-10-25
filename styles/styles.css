@@ -53,6 +53,11 @@
   justify-content: center;
 }
 
+.inactive-graphText {
+  color: grey;
+  cursor: pointer;
+}
+
 .loan {
   position: relative;
   background-color: rgba(0, 255, 51, 0.573);
