@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ColorType,
   createChart,
@@ -9,8 +9,6 @@ import {
   Time,
 } from "lightweight-charts";
 
-import axios from "axios";
-
 import { ServerDataType } from "../../utils/Interfaces";
 import {
   precioBTCDiario,
@@ -19,21 +17,10 @@ import {
 
 const ChartComponent_preciosUsd: React.FC<{
   paymentsList: ServerDataType | undefined;
-}> = () => {
+  btcPrices: { tstamp: number; price: number }[] | undefined;
+}> = ({ paymentsList, btcPrices }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
-
-  const [paymentsList, setPaymentsList] = useState<
-    ServerDataType | undefined
-  >();
-
-  useEffect(() => {
-    axios
-      .get("https://api.evervaluecoin.com/getAllTransactions")
-      .then((response: any) => {
-        setPaymentsList(response.data.body);
-      });
-  }, []);
 
   useEffect(() => {
     if (chartContainerRef.current) {
@@ -96,9 +83,10 @@ const ChartComponent_preciosUsd: React.FC<{
         },
       });
 
-      const data1: AreaData[] = !paymentsList
-        ? [{ time: "2021-01-23" as Time, value: 0.01 }]
-        : precioEVADiario(paymentsList);
+      const data1: AreaData[] =
+        !paymentsList || !btcPrices
+          ? [{ time: "2021-01-23" as Time, value: 0.01 }]
+          : precioEVADiario(paymentsList, btcPrices);
 
       // Segunda serie de datos
       const areaSeries2: ISeriesApi<"Area"> = chart.addAreaSeries({
@@ -115,9 +103,10 @@ const ChartComponent_preciosUsd: React.FC<{
         },
       });
 
-      const data2: AreaData[] = !paymentsList
-        ? [{ time: "2021-01-23" as Time, value: 0.01 }]
-        : precioBTCDiario();
+      const data2: AreaData[] =
+        !paymentsList || !btcPrices
+          ? [{ time: "2021-01-23" as Time, value: 0.01 }]
+          : precioBTCDiario(btcPrices);
 
       areaSeries2.setData(data2);
       areaSeries1.setData(data1);

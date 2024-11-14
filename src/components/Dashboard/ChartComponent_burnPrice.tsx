@@ -15,7 +15,8 @@ import { ServerDataType } from "../../utils/Interfaces";
 
 const ChartComponent_burnPrice: React.FC<{
   paymentsList: ServerDataType | undefined;
-}> = ({ paymentsList }) => {
+  btcPrices: { tstamp: number; price: number }[] | undefined;
+}> = ({ paymentsList /* btcPrices */ }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
 

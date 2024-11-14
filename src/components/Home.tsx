@@ -280,23 +280,24 @@ const Home: React.FC = () => {
         <div className="input-container">
           {operationType == "buy" || operationType == "sell" ? (
             <div
-              /*             onClick={() => {
-              setInputSpendValue("");
-              setInputReceiveValue("");
+              onClick={() => {
+                setInputSpendValue("");
+                setInputReceiveValue("");
 
-              if (operationType == "buy") {
-                setOperationType("sell");
-              } else {
-                setOperationType("buy");
-              }
-            }} */
+                if (operationType == "buy") {
+                  setOperationType("sell");
+                } else {
+                  setOperationType("buy");
+                }
+              }}
               className="G tooltip"
             >
               <img className="arrow" src="/exchange.png" alt="" />
-              <span className="tooltiptext">
+
+              {/*  <span className="tooltiptext">
                 <div className="marginforText">There is no WBTC for sale.</div>
                 <div>Plese proceed to our Burn Vault.</div>
-              </span>
+              </span> */}
             </div>
           ) : null}
           <div className="youPay-container">
