@@ -6,7 +6,7 @@ import { UTCTimestamp } from "lightweight-charts";
 import { ethers } from "ethers";
 import { ServerDataType } from "./Interfaces";
 import { agruparTxs } from "./argupadores";
-import { precioBtc, retornarPrecioBTC } from "./precioBTC";
+import { retornarPrecioBTC } from "./precioBTC";
 
 /* const ADDR_EVA = "0x45D9831d8751B2325f3DBf48db748723726e1C8c";
 const ADDR_WBTC = "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f";
@@ -122,7 +122,10 @@ export const wbtcEnBaulSemanal = (dataFromServer: ServerDataType) => {
   return dataGrafico;
 };
 
-export const precioEVADiario = (dataFromServer: ServerDataType) => {
+export const precioEVADiario = (
+  dataFromServer: ServerDataType,
+  prices: { tstamp: number; price: number }[]
+) => {
   const milisegundos1Dia = 60 * 60 * 24;
 
   const transaccionesAgrupadas = agruparTxs(dataFromServer, milisegundos1Dia);
@@ -166,7 +169,8 @@ export const precioEVADiario = (dataFromServer: ServerDataType) => {
 
       dataGrafico[i] = {
         time: toUTCTimestamp(fecha),
-        value: (retornarPrecioBTC(fecha) / 100000000) * rentabilidadSemana,
+        value:
+          (retornarPrecioBTC(prices, fecha) / 100000000) * rentabilidadSemana,
       };
     }
   }
@@ -176,14 +180,19 @@ export const precioEVADiario = (dataFromServer: ServerDataType) => {
   return dataGrafico;
 };
 
-export const precioBTCDiario = () => {
+export const precioBTCDiario = (
+  precioBtc: {
+    tstamp: number;
+    price: number;
+  }[]
+) => {
   const dataGrafico: AreaData[] = [];
   const tstampDeployEva = 1720736121 * 1000;
 
   precioBtc.forEach((precio, index) => {
     dataGrafico[index] = {
       time: toUTCTimestamp(tstampDeployEva + index * 60 * 60 * 24 * 1000),
-      value: precio,
+      value: precio.price,
     };
   });
 

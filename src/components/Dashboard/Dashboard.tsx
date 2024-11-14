@@ -9,11 +9,21 @@ const Dashboard: React.FC = () => {
     ServerDataType | undefined
   >();
 
+  const [btcPrices, setBtcPrices] = useState<
+    { tstamp: number; price: number }[] | undefined
+  >(undefined);
+
   useEffect(() => {
     axios
       .get("https://api.evervaluecoin.com/getAllTransactions")
       .then((response: any) => {
         setPaymentsList(response.data.body);
+      });
+
+    axios
+      .get("https://api.evervaluecoin.com/getBtcPrices")
+      .then((response: any) => {
+        setBtcPrices(response.data.body);
       });
   }, []);
 
@@ -45,9 +55,15 @@ const Dashboard: React.FC = () => {
           </span>
         </div>
         {whichGraph == "burnPrice" ? (
-          <ChartComponent_burnPrice paymentsList={paymentsList} />
+          <ChartComponent_burnPrice
+            paymentsList={paymentsList}
+            btcPrices={btcPrices}
+          />
         ) : (
-          <ChartComponent_preciosUsd paymentsList={paymentsList} />
+          <ChartComponent_preciosUsd
+            paymentsList={paymentsList}
+            btcPrices={btcPrices}
+          />
         )}
       </div>
     </div>

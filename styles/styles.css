@@ -1464,10 +1464,19 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .G:hover {
+  cursor: pointer;
+}
+
+.G:hover .arrow {
+  filter: invert(77%) sepia(3%) saturate(3599%) hue-rotate(339deg)
+    brightness(94%) contrast(101%);
+}
+
+/* .G:hover {
   visibility: hidden;
 }
 
 .G:hover .tooltiptext {
   display: block;
   visibility: visible;
-}
+} */
