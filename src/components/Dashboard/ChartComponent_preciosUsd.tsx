@@ -111,6 +111,8 @@ const ChartComponent_preciosUsd: React.FC<{
       areaSeries2.setData(data2);
       areaSeries1.setData(data1);
 
+      console.log(data1);
+
       const firstPoint = data2[0].time;
       const lastPoint = data2[data2.length - 1].time;
 
@@ -132,8 +134,8 @@ const ChartComponent_preciosUsd: React.FC<{
       areaSeries2.applyOptions({
         autoscaleInfoProvider: () => ({
           priceRange: {
-            minValue: 50000,
-            maxValue: 78000,
+            minValue: 55000,
+            maxValue: 85000,
           },
         }),
       });
@@ -141,8 +143,8 @@ const ChartComponent_preciosUsd: React.FC<{
       areaSeries1.applyOptions({
         autoscaleInfoProvider: () => ({
           priceRange: {
-            minValue: -0.2,
-            maxValue: 0.3,
+            minValue: -0.1,
+            maxValue: 0.5,
           },
         }),
       });

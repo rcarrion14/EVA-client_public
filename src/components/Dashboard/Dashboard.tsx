@@ -38,7 +38,9 @@ const Dashboard: React.FC = () => {
         <div className="dashboard-header">
           <span
             className={
-              whichGraph == "burnPrice" ? undefined : "inactive-graphText"
+              whichGraph == "burnPrice"
+                ? "active-graphText"
+                : "inactive-graphText"
             }
             onClick={() => setWhichGraph("burnPrice")}
           >
@@ -47,7 +49,9 @@ const Dashboard: React.FC = () => {
           {" - "}
           <span
             className={
-              whichGraph == "preciosUsd" ? undefined : "inactive-graphText"
+              whichGraph == "preciosUsd"
+                ? "active-graphText"
+                : "inactive-graphText"
             }
             onClick={() => setWhichGraph("preciosUsd")}
           >

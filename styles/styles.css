@@ -32,7 +32,7 @@
 .dashboard-container {
   width: 100%;
   max-width: 900px;
-  height: calc(100svh - 75px - 60px);
+  /* height: calc(100svh - 75px - 60px); */
   display: grid;
   padding: 0px 20px 20px 20px;
   box-sizing: border-box;
@@ -44,6 +44,7 @@
   font-size: 15px;
   font-weight: 200;
   line-height: 20px;
+  height: 76px;
 }
 
 .mining {
@@ -323,9 +324,18 @@ th {
 }
 
 .dashboard-header {
-  padding: 5px 15px 0px 15px;
+  padding: 5px 15px 15px 15px;
   font-size: 30px;
   color: white;
+  margin-top: 20px;
+}
+
+.active-graphText {
+  border: solid rgb(163, 163, 163) 1px;
+  padding: 5px 5px 15px 5px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: rgb(26, 26, 26);
 }
 
 .dashboard-subheader {
