@@ -112,7 +112,7 @@ const ChartComponent_burnPrice: React.FC<{
       <div className="leyenda" style={{ zIndex: "5" }}>
         <div onClick={() => {}}>
           <span className="dot eva"></span>
-          EVA Burn price (SATS)
+          EVA burn price (SATS)
         </div>
       </div>
       <div

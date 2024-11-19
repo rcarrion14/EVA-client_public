@@ -212,12 +212,30 @@ const Home: React.FC = () => {
           </div>
         );
       }
-      if (operationType == "buy" || operationType == "sell") {
+      if (operationType == "buy") {
         return (
           <div>
             {oneToShow == "EVA" && (satsPerEva || api_satsPerEva)
               ? (satsPerEva! ?? api_satsPerEva).toString() + " SATS"
               : (1 / Number(satsPerEva! ?? api_satsPerEva)).toFixed(5) + " EVA"}
+          </div>
+        );
+      }
+      if (operationType == "sell") {
+        return (
+          <div>
+            {oneToShow == "EVA" && (satsPerEva || api_satsPerEva)
+              ? (
+                  ((satsPerEva! ?? api_satsPerEva) * (1000n - api_fee!)) /
+                  1000n
+                ).toString() + " SATS"
+              : (
+                  1 /
+                  Number(
+                    ((satsPerEva! ?? api_satsPerEva) * (1000n - api_fee!)) /
+                      1000n
+                  )
+                ).toFixed(5) + " EVA"}
           </div>
         );
       }
