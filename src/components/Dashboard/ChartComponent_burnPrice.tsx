@@ -91,7 +91,7 @@ const ChartComponent_burnPrice: React.FC<{
         to: lastPoint,
       });
 
-      chart.applyOptions({
+      /*       chart.applyOptions({
         handleScale: {
           axisPressedMouseMove: false,
           mouseWheel: false,
@@ -99,7 +99,7 @@ const ChartComponent_burnPrice: React.FC<{
         handleScroll: {
           pressedMouseMove: false,
         },
-      });
+      }); */
 
       return () => {
         chart.remove();
@@ -115,11 +115,7 @@ const ChartComponent_burnPrice: React.FC<{
           EVA burn price (SATS)
         </div>
       </div>
-      <div
-        ref={chartContainerRef}
-        style={{ width: "900px", height: "400px" }}
-        className="grafica"
-      ></div>
+      <div ref={chartContainerRef} className="grafica test"></div>
       <div className="graph-description">
         The Burn Price of EVA rises steadily as the wBTC collateral in the Burn
         Vault grows. This means that the value of each EVA token continuously

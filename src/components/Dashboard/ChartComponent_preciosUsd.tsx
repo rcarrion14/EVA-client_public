@@ -121,7 +121,7 @@ const ChartComponent_preciosUsd: React.FC<{
         to: lastPoint,
       });
 
-      chart.applyOptions({
+      /*       chart.applyOptions({
         handleScale: {
           axisPressedMouseMove: false,
           mouseWheel: false,
@@ -129,13 +129,13 @@ const ChartComponent_preciosUsd: React.FC<{
         handleScroll: {
           pressedMouseMove: false,
         },
-      });
+      }); */
 
       areaSeries2.applyOptions({
         autoscaleInfoProvider: () => ({
           priceRange: {
             minValue: 55000,
-            maxValue: 85000,
+            maxValue: 95000,
           },
         }),
       });
@@ -143,8 +143,8 @@ const ChartComponent_preciosUsd: React.FC<{
       areaSeries1.applyOptions({
         autoscaleInfoProvider: () => ({
           priceRange: {
-            minValue: -0.1,
-            maxValue: 0.5,
+            minValue: 0.1,
+            maxValue: 0.48,
           },
         }),
       });
@@ -167,11 +167,7 @@ const ChartComponent_preciosUsd: React.FC<{
           Price EVA (USD)
         </div>
       </div>
-      <div
-        ref={chartContainerRef}
-        style={{ width: "900px", height: "400px" }}
-        className="grafica"
-      ></div>
+      <div ref={chartContainerRef} className="grafica test"></div>
       <div className="graph-description">
         EVA not only follows BTC, but it also performs even better during price
         increases. When BTC rises, EVA tends to increase even more, and when BTC

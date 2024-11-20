@@ -75,35 +75,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-
-/*     <>
-      <div id="dashboard" className="seccion dashboard">
-        <div id="aa" className="dashboard-container">
-          <div className="dashboard-subheader">DASHBOARD</div>   
-            <div className="dashboard-header">
-                <span
-                  className={
-                    whichGraph == "burnPrice" ? undefined : "inActiveGraphText"
-                  }
-                  onClick={() => setWhichGraph("burnPrice")}
-                >
-                  Burn Price
-                </span>
-                <span
-                  className={
-                    whichGraph == "burnPrice" ? undefined : "inActiveGraphText"
-                  }
-                  onClick={() => setWhichGraph("preciosUsd")}
-                >
-                  Price Comparison: EVA vs. BTC
-                </span>
-            </div>
-
-            {whichGraph == "burnPrice" ?}
-              <ChartComponent_burnPrice paymentsList={paymentsList} />
-            </>
-          ) : (
-            <ChartComponent_preciosUsd paymentsList={paymentsList} />
-            </div>
-            </div>
-            </> )} */

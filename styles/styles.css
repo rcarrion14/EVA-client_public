@@ -32,8 +32,8 @@
 .dashboard-container {
   width: 100%;
   max-width: 900px;
-  /* height: calc(100svh - 75px - 60px); */
   display: grid;
+  justify-content: center;
   padding: 0px 20px 20px 20px;
   box-sizing: border-box;
 }
@@ -1193,6 +1193,11 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 92px;
 }
 
+.test {
+  width: 900px;
+  height: 400px;
+}
+
 @media only screen and (max-width: 768px) {
   .table > :nth-child(2) {
     border-top-right-radius: 15px;
@@ -1346,6 +1351,23 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   .botonTG {
     width: 90%;
+  }
+
+  .graph-description {
+    font-size: 13px;
+  }
+
+  .dashboard-header {
+    font-size: 15px;
+  }
+
+  .dashboard-subheader {
+    padding-top: 0;
+  }
+
+  .test {
+    width: calc(100svw - 20px);
+    height: calc(50svh - 20px);
   }
 }
 
