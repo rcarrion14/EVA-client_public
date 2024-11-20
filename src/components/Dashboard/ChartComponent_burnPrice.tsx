@@ -91,7 +91,7 @@ const ChartComponent_burnPrice: React.FC<{
         to: lastPoint,
       });
 
-      /*       chart.applyOptions({
+      chart.applyOptions({
         handleScale: {
           axisPressedMouseMove: false,
           mouseWheel: false,
@@ -99,7 +99,7 @@ const ChartComponent_burnPrice: React.FC<{
         handleScroll: {
           pressedMouseMove: false,
         },
-      }); */
+      });
 
       return () => {
         chart.remove();

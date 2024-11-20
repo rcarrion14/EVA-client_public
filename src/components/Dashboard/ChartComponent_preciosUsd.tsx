@@ -111,17 +111,12 @@ const ChartComponent_preciosUsd: React.FC<{
       areaSeries2.setData(data2);
       areaSeries1.setData(data1);
 
-      console.log(data1);
-
-      const firstPoint = data2[0].time;
-      const lastPoint = data2[data2.length - 1].time;
-
       chart.timeScale().setVisibleRange({
-        from: firstPoint,
-        to: lastPoint,
+        from: data2[3].time,
+        to: data2[data2.length - 1].time,
       });
 
-      /*       chart.applyOptions({
+      chart.applyOptions({
         handleScale: {
           axisPressedMouseMove: false,
           mouseWheel: false,
@@ -129,13 +124,13 @@ const ChartComponent_preciosUsd: React.FC<{
         handleScroll: {
           pressedMouseMove: false,
         },
-      }); */
+      });
 
       areaSeries2.applyOptions({
         autoscaleInfoProvider: () => ({
           priceRange: {
-            minValue: 55000,
-            maxValue: 95000,
+            minValue: 50000,
+            maxValue: 120000,
           },
         }),
       });
@@ -143,8 +138,8 @@ const ChartComponent_preciosUsd: React.FC<{
       areaSeries1.applyOptions({
         autoscaleInfoProvider: () => ({
           priceRange: {
-            minValue: 0.1,
-            maxValue: 0.48,
+            minValue: 0.05,
+            maxValue: 0.43,
           },
         }),
       });
